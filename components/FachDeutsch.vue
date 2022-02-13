@@ -1,6 +1,6 @@
 <template>
   <b-row class="justify-content-md-center">
-    <b-col cols="3">Deutsch</b-col>
+    <b-col cols="3">Deutsch {{ this.$store.state.gesamtnoteDeutsch }}</b-col>
     <b-col cols="3"
       ><b-form-input
         class="inputNote"
@@ -55,8 +55,10 @@ export default {
       let gesamtnote = "";
       if (!isNaN(jahresnote) && !isNaN(pruefungsnote)) {
         gesamtnote = jahresnote + pruefungsnote;
+        this.$store.commit("setGesamtnoteDeutsch", gesamtnote);
         return gesamtnote;
       }
+      this.$store.commit("setGesamtnoteDeutsch", gesamtnote);
       return "";
     },
   },

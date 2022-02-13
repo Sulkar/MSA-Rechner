@@ -1,11 +1,12 @@
 <template>
   <b-row class="justify-content-md-center">
-    <b-col cols="3">Mathe</b-col>
+    <b-col cols="3">Mathe {{ this.$store.state.gesamtnoteMathe }}</b-col>
     <b-col cols="3"
       ><b-form-input
         class="inputNote"
         ref="jahresnote_mathe"
         placeholder="JN"
+        @focus="updateCurrentFocus($event)"
         v-on:keyup="focusNextInput()"
         v-model="jahresnote"
         :formatter="formatInput"
@@ -55,8 +56,10 @@ export default {
       let gesamtnote = "";
       if (!isNaN(jahresnote) && !isNaN(pruefungsnote)) {
         gesamtnote = jahresnote + pruefungsnote;
+        this.$store.commit("setGesamtnoteMathe", gesamtnote);
         return gesamtnote;
       }
+      this.$store.commit("setGesamtnoteMathe", "");
       return "";
     },
   },
@@ -64,6 +67,9 @@ export default {
     this.focusNextInput();
   },
   methods: {
+    updateCurrentFocus(e){
+      console.log(e.target);
+    },
     focusNextInput() {
       if (this.inputfields[this.currentFocus + 1] == undefined)
         this.currentFocus = 1;
