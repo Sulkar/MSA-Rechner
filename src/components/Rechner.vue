@@ -1,20 +1,90 @@
-<script setup>
-import { onMounted, ref } from "vue";
+<script>
 import FachDeutsch from "./FachDeutsch.vue";
-import { store } from "./store.js";
 import FachReligion from "./FachReligion.vue";
 import FachMathematik from "./FachMathematik.vue";
+import FachProjekt from "./FachProjekt.vue";
+import FachEnglisch from "./FachEnglisch.vue";
+import FachGPG from "./FachGPG.vue";
+import FachNuT from "./FachNuT.vue";
+import FachInformatik from "./FachInformatik.vue";
+import Notenheader from "./Notenheader.vue";
 
-onMounted(() => {
-  document.querySelector("#R1 input").focus();
-});
+export default {
+  components: {
+    FachDeutsch,
+    FachReligion,
+    FachMathematik,
+    FachProjekt,
+    FachEnglisch,
+    FachGPG,
+    FachNuT,
+    FachInformatik,
+    Notenheader,
+  },
+  mounted() {
+    document.querySelector("#D1 input").focus();
+  },
+  data() {
+    return {
+      deutsch: 0,
+      mathematik: 0,
+      englisch: 0,
+      projekt: 0,
+      religion: 0,
+      gpg: 0,
+      nut: 0,
+      informatik: 0,
+      gesamtnote: 0,
+      info: "",
+    };
+  },
+  methods: {
+    handleGetGesamtNote(fach, note) {
+      this[fach] = parseInt(note);
+      this.checkFachnoten();
+    },
+    checkFachnoten() {
+      let fachArray = ["deutsch", "mathematik", "englisch", "projekt", "religion", "gpg", "nut", "informatik"];
+      let count5 = 0;
+      let count6 = 0;
+      fachArray.forEach((fach) => {
+        if (this[fach] == 5) {
+          count5++;
+        } else if (this[fach] == 6) {
+          count6++;
+        }
+      });
+      if (count5 > 1 || count6 > 0) {
+        this.info = "Du hast den MSA nicht bestanden 😭";
+      } else {
+        this.info = "Du hast den MSA bestanden 😁";
+      }
+    },
+  },
+};
 </script>
 
 <template>
-  <FachReligion></FachReligion>
-  <FachMathematik></FachMathematik>
-  <FachDeutsch></FachDeutsch>
+  <Notenheader></Notenheader>
+  <FachDeutsch @getFachNote="handleGetGesamtNote"></FachDeutsch>
+  <FachMathematik @getFachNote="handleGetGesamtNote"></FachMathematik>
+  <FachEnglisch @getFachNote="handleGetGesamtNote"></FachEnglisch>
+  <FachProjekt @getFachNote="handleGetGesamtNote"></FachProjekt>
+  <FachReligion @getFachNote="handleGetGesamtNote"></FachReligion>
+  <FachGPG @getFachNote="handleGetGesamtNote"></FachGPG>
+  <FachNuT @getFachNote="handleGetGesamtNote"></FachNuT>
+  <FachInformatik @getFachNote="handleGetGesamtNote"></FachInformatik>
+  <div class="trenner"></div>
+
   <div>
-    {{ store.Gesamtnote }}
+    <div style="text-align: center">{{ info }}</div>
+    <div style="text-align: center">(* mündliche Prüfung möglich)</div>
   </div>
 </template>
+
+<style>
+.trenner {
+  margin: 10px 0 10px 0;
+  border: 2px solid #008036;
+}
+</style>

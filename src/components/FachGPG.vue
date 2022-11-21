@@ -1,8 +1,7 @@
 <script>
 import Notenfeld from "./Notenfeld.vue";
-import Gesamtnote from "./Gesamtnote.vue";
-import globalFunctions from "./mixins/globalFunctions";
 import Notenplatzhalter from "./Notenplatzhalter.vue";
+import Gesamtnote from "./Gesamtnote.vue";
 import InfoIcon from "./InfoIcon.vue";
 
 export default {
@@ -15,15 +14,13 @@ export default {
   data() {
     return {
       jahresnote: 0,
-      schriftlich: 0,
       gesamtnote: 0,
       info: "",
     };
   },
-  mixins: [globalFunctions],
   watch: {
     gesamtnote(newValue, oldValue) {
-      this.$emit("getFachNote", "mathematik", newValue);
+      this.$emit("getFachNote", "gpg", newValue);
     },
   },
   methods: {
@@ -32,15 +29,10 @@ export default {
       this.calculateGesamtnote();
     },
     calculateGesamtnote() {
-      let pruefungsnote = this.schriftlich;
-      //Gesamtnote auf zwei Stellen gerundet
-      let tempGesamtnote = Math.round(((this.jahresnote + pruefungsnote) / 2) * 100) / 100;
-      console.log("Gesamtnote Mathematik: " + tempGesamtnote);
-      //Prüfungsnote überwiegt?
-      this.gesamtnote = this.gUpdatePruefungsnoteUeberwiegt(pruefungsnote, this.jahresnote, tempGesamtnote);
-      //Mündliche Prüfung möglich?
-      if (this.gIsMuendlichePruefungHauptfach(pruefungsnote, this.jahresnote, this.gesamtnote)) {
-        console.log("Mündliche Prüfung in Mathematik möglich");
+      this.gesamtnote = this.jahresnote;
+      //Mündliche Prüfung? Wenn Jahresnote 5 oder 6 ist
+      if (this.jahresnote >= 5) {
+        console.log("Mündliche Prüfung in GPG möglich");
         this.info = "*";
       } else {
         this.info = "";
@@ -52,12 +44,12 @@ export default {
 
 <template>
   <div class="row">
-    <div class="fach">Mathematik</div>
+    <div class="fach">GPG</div>
     <div class="notenfelderRow">
-      <Notenfeld id="M1" nextId="M2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
-      <Notenfeld id="M2" nextId="E1" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
-      <Notenplatzhalter width="50px;"></Notenplatzhalter>
-      <Gesamtnote id="M3" :note="gesamtnote"></Gesamtnote>
+      <Notenfeld id="G1" nextId="N1" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
+      <Notenplatzhalter width="100px;"></Notenplatzhalter>
+
+      <Gesamtnote id="G2" :note="gesamtnote"></Gesamtnote>
       <InfoIcon :icon="info"></InfoIcon>
       <Notenplatzhalter width="15px;"></Notenplatzhalter>
     </div>

@@ -7,7 +7,7 @@ import Rechner from "./components/Rechner.vue";
 
   <main>
     <div id="wrapper">
-      <img alt="Vue logo" class="logo" src="./assets/quali-yes-no-banner.jpg" width="" height="125" />
+      <img alt="Vue logo" class="logo" src="./assets/MSA-logo.png" width="" height="100" />
       <Rechner></Rechner>
     </div>
   </main>
@@ -20,13 +20,13 @@ header {
 
 .logo {
   display: block;
-  margin: 0 auto 2rem;
+  margin: 0 auto 0.4rem;
 }
 
 @media (min-width: 1024px) {
   #wrapper {
     border-radius: 25px;
-    border: 10px solid #729fcf;
+    border: 10px solid #008036;
     padding: 10px 20px 10px;
   }
   header {

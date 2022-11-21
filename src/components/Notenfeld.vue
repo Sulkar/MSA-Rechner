@@ -1,38 +1,45 @@
-<script setup>
-import { store } from "./store.js";
-const emit = defineEmits(["getNote"]);
+<script>
+import globalFunctions from "./mixins/globalFunctions";
 
-const props = defineProps({
-  typ: {
-    type: String,
+export default {
+  props: { typ: String, nextId: String },
+  mixins: [globalFunctions],
+  methods: {
+    updateNote(event) {
+      const currentValue = event.target.value;
+      this.$emit("getNote", this.typ, currentValue);
+      this.focusNextNotenfeld();
+    },
+    focusNextNotenfeld() {
+      if (this.nextId != null && this.nextId != "") {
+        const newNotenfeld = document.querySelector("#" + this.nextId + " input");
+        newNotenfeld.focus();
+        newNotenfeld.select();
+      }
+    },
+    setFocus() {
+      let currentElementId = this.$el.id;
+      document.querySelector("#" + currentElementId + " input").select();
+    },
   },
-  nextId: {
-    type: String,
-  },
-});
-
-function updateNote(event) {
-  const currentValue = event.target.value;
-  emit("getNote", props.typ, currentValue);
-  focusNextNotenfeld();
-}
-
-function focusNextNotenfeld() {
-  const newNotenfeld = document.querySelector("#" + props.nextId + " input");
-  newNotenfeld.focus();
-  newNotenfeld.select();
-}
+};
 </script>
 
 <template>
-  <div class="row">
-    <input :placeholder="typ" @input="updateNote" />
+  <div>
+    <input placeholder="-" @input="updateNote" @click="setFocus" />
   </div>
 </template>
 
 <style scoped>
-.row {
+input {
+  width: 30px;
+  height: 24px;
+  text-align: center;
+}
+div {
   display: flex;
+  margin-left: 20px;
 }
 h1 {
   font-weight: 500;

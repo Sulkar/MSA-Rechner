@@ -1,39 +1,70 @@
-<script setup>
+<script>
 import Notenfeld from "./Notenfeld.vue";
-import { store } from "./store.js";
+import Notenplatzhalter from "./Notenplatzhalter.vue";
+import Gesamtnote from "./Gesamtnote.vue";
+import InfoIcon from "./InfoIcon.vue";
 
-defineProps({});
-
-let zeugnisNote;
-let pruefungsNote;
-
-function berechneGesamtnote() {
-  //..
-}
-function handleGetNote(typ, note) {
-  if(typ == "Zeugnis"){
-    zeugnisNote = note;
-  }else if(typ == "Prüfung"){
-    pruefungsNote = note;
-  }
-  
-  console.log(typ);
-  console.log(note);
-}
+export default {
+  components: {
+    Notenfeld,
+    Gesamtnote,
+    Notenplatzhalter,
+    InfoIcon,
+  },
+  data() {
+    return {
+      jahresnote: 0,
+      gesamtnote: 0,
+      info: "",
+    };
+  },
+  watch: {
+    gesamtnote(newValue, oldValue) {
+      this.$emit("getFachNote", "religion", newValue);
+    },
+  },
+  methods: {
+    handleGetNote(typ, note) {
+      this[typ] = parseInt(note);
+      this.calculateGesamtnote();
+    },
+    calculateGesamtnote() {
+      this.gesamtnote = this.jahresnote;
+      //Mündliche Prüfung? Wenn Jahresnote 5 oder 6 ist
+      if (this.jahresnote >= 5) {
+        console.log("Mündliche Prüfung in Religion möglich");
+        this.info = "*";
+      } else {
+        this.info = "";
+      }
+    },
+  },
+};
 </script>
 
 <template>
   <div class="row">
     <div class="fach">Religion</div>
-
-    <Notenfeld id="R1" nextId="R2" typ="Zeugnis" @getNote="handleGetNote"></Notenfeld>
-    <Notenfeld id="R2" nextId="M1" typ="Prüfung" @getNote="handleGetNote"></Notenfeld>
+    <div class="notenfelderRow">
+      <Notenfeld id="R1" nextId="G1" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
+      <Notenplatzhalter width="100px;"></Notenplatzhalter>
+      
+      <Gesamtnote id="R2" :note="gesamtnote"></Gesamtnote>
+      <InfoIcon :icon="info"></InfoIcon>
+      <Notenplatzhalter width="15px;"></Notenplatzhalter>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .row {
   display: flex;
+  margin-top: 10px;
+}
+.notenfelderRow {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 h1 {
   font-weight: 500;

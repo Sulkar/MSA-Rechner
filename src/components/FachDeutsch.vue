@@ -1,30 +1,81 @@
-<script setup>
+<script>
 import Notenfeld from "./Notenfeld.vue";
-import { store } from "./store.js";
+import Gesamtnote from "./Gesamtnote.vue";
+import globalFunctions from "./mixins/globalFunctions";
+import Notenplatzhalter from "./Notenplatzhalter.vue";
+import InfoIcon from "./InfoIcon.vue";
 
-defineProps({});
+export default {
+  components: {
+    Notenfeld,
+    Gesamtnote,
+    Notenplatzhalter,
+    InfoIcon,
+  },
+  data() {
+    return {
+      jahresnote: 0,
+      schriftlich: 0,
+      muendlich: 0,
+      gesamtnote: 0,
+      info: "",
+    };
+  },
+  mixins: [globalFunctions],
+  watch: {
+    gesamtnote(newValue, oldValue) {
+      this.$emit("getFachNote", "deutsch", newValue);
+    },
+  },
+  methods: {
+    handleGetNote(typ, note) {
+      this[typ] = parseInt(note);
+      this.calculateGesamtnote();
+    },
 
-function berechneGesamtnote() {
-  //..
-}
-function handleGetNote(typ, note) {
-  console.log(typ);
-  console.log(note);
-}
+    calculateGesamtnote() {
+      let pruefungsnote = Math.round((this.schriftlich * 3 + this.muendlich) / 4);
+      //Gesamtnote auf zwei Stellen gerundet
+      let tempGesamtnote = Math.round(((this.jahresnote + pruefungsnote) / 2) * 100) / 100;
+      console.log("Gesamtnote Deutsch: " + tempGesamtnote);
+      //Prüfungsnote überwiegt?
+      this.gesamtnote = this.gUpdatePruefungsnoteUeberwiegt(pruefungsnote, this.jahresnote, tempGesamtnote);
+      //Mündliche Prüfung möglich?
+      if (this.gIsMuendlichePruefungHauptfach(pruefungsnote, this.jahresnote, this.gesamtnote)) {
+        console.log("Mündliche Prüfung in Deutsch möglich");
+        this.info = "*";
+      } else {
+        this.info = "";
+      }
+      //this.$emit("getFachNote", "deutsch", this.gesamtnote);
+    },
+  },
+};
 </script>
 
 <template>
   <div class="row">
-    <div class="fach">Deutsch</div>
-
-    <Notenfeld id="D1" nextId="D2" typ="Zeugnis" @getNote="handleGetNote"></Notenfeld>
-    <Notenfeld id="D2" nextId="R1" typ="Prüfung" @getNote="handleGetNote"></Notenfeld>
+    <div class="">Deutsch</div>
+    <div class="notenfelderRow">
+      <Notenfeld id="D1" nextId="D2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="D2" nextId="D3" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="D3" nextId="M1" typ="muendlich" @getNote="handleGetNote"></Notenfeld>
+      <Gesamtnote id="D4" :note="gesamtnote"></Gesamtnote>
+      <InfoIcon :icon="info"></InfoIcon>
+      <Notenplatzhalter width="15px;"></Notenplatzhalter>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .row {
   display: flex;
+  margin-top: 10px;
+}
+.notenfelderRow {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 h1 {
   font-weight: 500;

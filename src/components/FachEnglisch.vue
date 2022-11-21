@@ -16,6 +16,7 @@ export default {
     return {
       jahresnote: 0,
       schriftlich: 0,
+      muendlich: 0,
       gesamtnote: 0,
       info: "",
     };
@@ -23,7 +24,7 @@ export default {
   mixins: [globalFunctions],
   watch: {
     gesamtnote(newValue, oldValue) {
-      this.$emit("getFachNote", "mathematik", newValue);
+      this.$emit("getFachNote", "englisch", newValue);
     },
   },
   methods: {
@@ -31,16 +32,19 @@ export default {
       this[typ] = parseInt(note);
       this.calculateGesamtnote();
     },
+    /*let pruefungsnote = Math.round((this.schriftlich * 3 + this.muendlich) / 4);
+      console.log("Prüfungsnote " + pruefungsnote)
+      this.gesamtnote = Math.round((this.jahresnote + pruefungsnote) / 2);*/
     calculateGesamtnote() {
-      let pruefungsnote = this.schriftlich;
+      let pruefungsnote = Math.round((this.schriftlich * 2 + this.muendlich) / 3);
       //Gesamtnote auf zwei Stellen gerundet
       let tempGesamtnote = Math.round(((this.jahresnote + pruefungsnote) / 2) * 100) / 100;
-      console.log("Gesamtnote Mathematik: " + tempGesamtnote);
+      console.log("Gesamtnote Englisch: " + tempGesamtnote);
       //Prüfungsnote überwiegt?
       this.gesamtnote = this.gUpdatePruefungsnoteUeberwiegt(pruefungsnote, this.jahresnote, tempGesamtnote);
       //Mündliche Prüfung möglich?
       if (this.gIsMuendlichePruefungHauptfach(pruefungsnote, this.jahresnote, this.gesamtnote)) {
-        console.log("Mündliche Prüfung in Mathematik möglich");
+        console.log("Mündliche Prüfung in Englisch möglich");
         this.info = "*";
       } else {
         this.info = "";
@@ -52,12 +56,12 @@ export default {
 
 <template>
   <div class="row">
-    <div class="fach">Mathematik</div>
+    <div class="">Englisch</div>
     <div class="notenfelderRow">
-      <Notenfeld id="M1" nextId="M2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
-      <Notenfeld id="M2" nextId="E1" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
-      <Notenplatzhalter width="50px;"></Notenplatzhalter>
-      <Gesamtnote id="M3" :note="gesamtnote"></Gesamtnote>
+      <Notenfeld id="E1" nextId="E2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="E2" nextId="E3" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="E3" nextId="P1" typ="muendlich" @getNote="handleGetNote"></Notenfeld>
+      <Gesamtnote id="E4" :note="gesamtnote"></Gesamtnote>
       <InfoIcon :icon="info"></InfoIcon>
       <Notenplatzhalter width="15px;"></Notenplatzhalter>
     </div>
