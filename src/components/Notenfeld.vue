@@ -56,10 +56,4 @@ h3 {
   text-align: center;
 }
 
-@media (min-width: 1024px) {
-  .fach h1,
-  .fach h3 {
-    text-align: left;
-  }
-}
 </style>

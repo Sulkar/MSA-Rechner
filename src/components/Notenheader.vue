@@ -1,6 +1,8 @@
 <script>
+import LogoMSA from "./LogoMSA.vue";
+
 export default {
-  components: {},
+  components: { LogoMSA },
   data() {
     return {};
   },
@@ -10,6 +12,7 @@ export default {
 
 <template>
   <div class="rowNotenHeader">
+    <LogoMSA></LogoMSA>
     <span>Jahresnote</span>
     <span>schriftlich</span>
     <span>mündlich</span>
@@ -23,9 +26,10 @@ span {
   margin-left: -15px;
 }
 .rowNotenHeader {
+  margin-top: 15px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 25px;
+  /*margin-bottom: 25px;*/
 }
 </style>

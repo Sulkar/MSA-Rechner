@@ -32,19 +32,14 @@ export default {
       this[typ] = parseInt(note);
       this.calculateGesamtnote();
     },
-    /*let pruefungsnote = Math.round((this.schriftlich * 3 + this.muendlich) / 4);
-      console.log("Prüfungsnote " + pruefungsnote)
-      this.gesamtnote = Math.round((this.jahresnote + pruefungsnote) / 2);*/
     calculateGesamtnote() {
       let pruefungsnote = Math.round((this.schriftlich * 2 + this.muendlich) / 3);
       //Gesamtnote auf zwei Stellen gerundet
       let tempGesamtnote = Math.round(((this.jahresnote + pruefungsnote) / 2) * 100) / 100;
-      console.log("Gesamtnote Englisch: " + tempGesamtnote);
       //Prüfungsnote überwiegt?
       this.gesamtnote = this.gUpdatePruefungsnoteUeberwiegt(pruefungsnote, this.jahresnote, tempGesamtnote);
       //Mündliche Prüfung möglich?
       if (this.gIsMuendlichePruefungHauptfach(pruefungsnote, this.jahresnote, this.gesamtnote)) {
-        console.log("Mündliche Prüfung in Englisch möglich");
         this.info = "*";
       } else {
         this.info = "";
@@ -93,10 +88,4 @@ h3 {
   text-align: center;
 }
 
-@media (min-width: 1024px) {
-  .fach h1,
-  .fach h3 {
-    text-align: left;
-  }
-}
 </style>

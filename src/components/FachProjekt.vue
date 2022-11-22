@@ -32,10 +32,8 @@ export default {
     },
     calculateGesamtnote() {
       this.gesamtnote = Math.round((this.jahresnoteWiB + this.jahresnoteBoz + this.projektnote * 2) / 4);
-      console.log(this.gesamtnote);
       //Mündliche Prüfung? Wenn Jahresnote 5 oder 6 ist
       if (this.jahresnoteWiB >= 5 || this.jahresnoteBoz >= 5) {
-        console.log("Mündliche Prüfung in WiB/BoZ möglich");
         this.info = "*";
       } else {
         this.info = "";
@@ -111,10 +109,4 @@ h3 {
   text-align: center;
 }
 
-@media (min-width: 1024px) {
-  .fach h1,
-  .fach h3 {
-    text-align: left;
-  }
-}
 </style>

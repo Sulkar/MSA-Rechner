@@ -8,6 +8,8 @@ import FachGPG from "./FachGPG.vue";
 import FachNuT from "./FachNuT.vue";
 import FachInformatik from "./FachInformatik.vue";
 import Notenheader from "./Notenheader.vue";
+import IconMuendlich from "./icons/IconMuendlich.vue";
+import IconSmileyGood from "./icons/IconSmileyGood.vue";
 
 export default {
   components: {
@@ -19,6 +21,8 @@ export default {
     FachGPG,
     FachNuT,
     FachInformatik,
+    IconMuendlich,
+    IconSmileyGood,
     Notenheader,
   },
   mounted() {
@@ -57,7 +61,7 @@ export default {
       if (count5 > 1 || count6 > 0) {
         this.info = "Du hast den MSA nicht bestanden 😭";
       } else {
-        this.info = "Du hast den MSA bestanden 😁";
+        this.info = "Du hast den MSA bestanden 😁" ;
       }
     },
   },
@@ -75,10 +79,9 @@ export default {
   <FachNuT @getFachNote="handleGetGesamtNote"></FachNuT>
   <FachInformatik @getFachNote="handleGetGesamtNote"></FachInformatik>
   <div class="trenner"></div>
-
   <div>
-    <div style="text-align: center">{{ info }}</div>
-    <div style="text-align: center">(* mündliche Prüfung möglich)</div>
+    <div style="text-align: center; font-size: 1.2em;">{{ info }}</div>
+    <div style="text-align: center">( <IconMuendlich></IconMuendlich> mündliche Prüfung möglich)</div>
   </div>
 </template>
 

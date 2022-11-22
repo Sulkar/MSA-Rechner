@@ -1,5 +1,10 @@
 <script>
+import IconMuendlich from "./icons/IconMuendlich.vue";
+
 export default {
+  components: {
+    IconMuendlich,
+  },
   props: {
     icon: String,
   },
@@ -8,7 +13,9 @@ export default {
 </script>
 
 <template>
-  <div>{{ icon }}</div>
+  <div>
+    <IconMuendlich v-if="icon != ''"></IconMuendlich>
+  </div>
 </template>
 
 <style scoped>
