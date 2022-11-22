@@ -4,14 +4,14 @@ import Gesamtnote from "./Gesamtnote.vue";
 import globalFunctions from "./mixins/globalFunctions";
 import Notenplatzhalter from "./Notenplatzhalter.vue";
 
-import InfoIcon from "./InfoIcon.vue";
+import SymbolMuendlich from "./SymbolMuendlich.vue";
 
 export default {
   components: {
     Notenfeld,
     Gesamtnote,
     Notenplatzhalter,
-    InfoIcon,
+    SymbolMuendlich,
   },
   data() {
     return {
@@ -46,7 +46,6 @@ export default {
       } else {
         this.info = "";
       }
-      //this.$emit("getFachNote", "deutsch", this.gesamtnote);
     },
   },
 };
@@ -60,7 +59,7 @@ export default {
       <Notenfeld id="D2" nextId="D3" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
       <Notenfeld id="D3" nextId="M1" typ="muendlich" @getNote="handleGetNote"></Notenfeld>
       <Gesamtnote id="D4" :note="gesamtnote"></Gesamtnote>
-      <InfoIcon :icon="info"></InfoIcon>
+      <SymbolMuendlich :icon="info"></SymbolMuendlich>
       <Notenplatzhalter width="15px;"></Notenplatzhalter>
     </div>
   </div>

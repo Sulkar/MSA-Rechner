@@ -2,7 +2,7 @@
 import Notenfeld from "./Notenfeld.vue";
 import Notenplatzhalter from "./Notenplatzhalter.vue";
 import Gesamtnote from "./Gesamtnote.vue";
-import InfoIcon from "./InfoIcon.vue";
+import InfoIcon from "./SymbolMuendlich.vue";
 
 export default {
   components: {

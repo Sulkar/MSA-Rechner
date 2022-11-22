@@ -3,7 +3,7 @@ import Notenfeld from "./Notenfeld.vue";
 import Gesamtnote from "./Gesamtnote.vue";
 import globalFunctions from "./mixins/globalFunctions";
 import Notenplatzhalter from "./Notenplatzhalter.vue";
-import InfoIcon from "./InfoIcon.vue";
+import InfoIcon from "./SymbolMuendlich.vue";
 
 export default {
   components: {
