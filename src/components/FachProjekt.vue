@@ -1,8 +1,10 @@
 <script>
 import Notenfeld from "./Notenfeld.vue";
+
 import Notenplatzhalter from "./Notenplatzhalter.vue";
 import Gesamtnote from "./Gesamtnote.vue";
 import InfoIcon from "./SymbolMuendlich.vue";
+import NotenfeldProjekt from "./NotenfeldProjekt.vue";
 
 export default {
   components: {
@@ -10,6 +12,7 @@ export default {
     Gesamtnote,
     Notenplatzhalter,
     InfoIcon,
+    NotenfeldProjekt,
   },
   data() {
     return {
@@ -23,6 +26,9 @@ export default {
   watch: {
     gesamtnote(newValue, oldValue) {
       this.$emit("getFachNote", "projekt", newValue);
+    },
+    projektnote(newValue, oldValue) {
+      this.$emit("getProjektNote", newValue);
     },
   },
   methods: {
@@ -46,9 +52,9 @@ export default {
 <template>
   <div class="row">
     <div class="projektColumn">
-      <div class="fach" style="margin-top:-35px;">WiB</div>
+      <div class="fach" style="margin-top: -35px">WiB</div>
       <div class="divider"></div>
-      <div class="fach" style="margin-top:40px;">T/WiK/ES</div>
+      <div class="fach" style="margin-top: 40px">T/WiK/ES</div>
     </div>
     <div class="notenfelderRow">
       <div class="projektColumn">
@@ -62,7 +68,7 @@ export default {
       </div>
 
       <div class="projektColumn">
-        <Notenfeld id="P3" nextId="R1" typ="projektnote" @getNote="handleGetNote"></Notenfeld>
+        <NotenfeldProjekt id="P3" nextId="R1" typ="projektnote" @getNote="handleGetNote"></NotenfeldProjekt>
       </div>
       <div class="projektColumn">
         <Gesamtnote id="P4" :note="gesamtnote"></Gesamtnote>

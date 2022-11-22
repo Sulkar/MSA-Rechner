@@ -23,7 +23,7 @@ export default {
 </script>
 
 <template>
-  <div><input :class="getBackgroundColor()" placeholder="" :value="setNote()" disabled /></div>
+  <div><input :class="getBackgroundColor()" placeholder="" :value="setNote()" readonly /></div>
 </template>
 
 <style scoped>
@@ -33,6 +33,11 @@ input {
   color: white;
   text-align: center;
   font-size: large;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  outline: none;
 }
 .good {
   background-color: lightgreen;

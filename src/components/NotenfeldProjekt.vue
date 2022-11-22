@@ -1,9 +1,10 @@
 <script>
-import globalFunctions from "./mixins/globalFunctions";
-
+import Notenfeld from "./Notenfeld.vue";
 export default {
-  props: { typ: String, nextId: String },
-  mixins: [globalFunctions],
+  extends: Notenfeld,
+  data: {
+    tempNote: 0,
+  },
   methods: {
     updateNote(event) {
       if (isNaN(event.target.value)) {
@@ -12,20 +13,17 @@ export default {
         event.target.value = event.target.value[0];
       } else {
         const currentValue = event.target.value;
+        this.tempNote = currentValue;
         this.$emit("getNote", this.typ, currentValue);
         this.focusNextNotenfeld();
       }
     },
-    focusNextNotenfeld() {
-      if (this.nextId != null && this.nextId != "") {
-        const newNotenfeld = document.querySelector("#" + this.nextId + " input");
-        newNotenfeld.focus();
-        newNotenfeld.select();
+    getBackgroundColor() {
+      if (this.tempNote == 6) {
+        return "bad";
+      } else {
+        return "";
       }
-    },
-    setFocus() {
-      let currentElementId = this.$el.id;
-      document.querySelector("#" + currentElementId + " input").select();
     },
   },
 };
@@ -33,13 +31,14 @@ export default {
 
 <template>
   <div>
-    <input type="number" placeholder="-" @input="updateNote" @click="setFocus" />
+    <input type="number" :class="getBackgroundColor()" placeholder="-" @input="updateNote" @click="setFocus" />
   </div>
 </template>
 
 <style scoped>
 .bad {
   background-color: lightcoral;
+  color: white;
 }
 input {
   width: 30px;

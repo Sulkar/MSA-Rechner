@@ -34,6 +34,7 @@ export default {
       mathematik: 0,
       englisch: 0,
       projekt: 0,
+      projektNote: 0,
       religion: 0,
       gpg: 0,
       nut: 0,
@@ -47,6 +48,10 @@ export default {
       this[fach] = parseInt(note);
       this.checkFachnoten();
     },
+    handleGetProjektNote(note) {
+      this.projektNote = parseInt(note);
+      this.checkFachnoten();
+    },
     checkFachnoten() {
       let fachArray = ["deutsch", "mathematik", "englisch", "projekt", "religion", "gpg", "nut", "informatik"];
       let count5 = 0;
@@ -58,7 +63,7 @@ export default {
           count6++;
         }
       });
-      if (count5 > 1 || count6 > 0) {
+      if (count5 > 1 || count6 > 0 || this.projektNote == 6) {
         this.info = "Du hast den MSA nicht bestanden 😭";
       } else {
         this.info = "Du hast den MSA bestanden 😁";
@@ -73,14 +78,14 @@ export default {
   <FachDeutsch @getFachNote="handleGetGesamtNote"></FachDeutsch>
   <FachMathematik @getFachNote="handleGetGesamtNote"></FachMathematik>
   <FachEnglisch @getFachNote="handleGetGesamtNote"></FachEnglisch>
-  <FachProjekt @getFachNote="handleGetGesamtNote"></FachProjekt>
+  <FachProjekt @getFachNote="handleGetGesamtNote" @getProjektNote="handleGetProjektNote"></FachProjekt>
   <FachReligion @getFachNote="handleGetGesamtNote"></FachReligion>
   <FachGPG @getFachNote="handleGetGesamtNote"></FachGPG>
   <FachNuT @getFachNote="handleGetGesamtNote"></FachNuT>
   <FachInformatik @getFachNote="handleGetGesamtNote"></FachInformatik>
   <div class="trenner"></div>
   <div>
-    <div style="text-align: center;">{{ info }}</div>
+    <div style="text-align: center">{{ info }}</div>
     <div style="text-align: center"><ButtonInfo></ButtonInfo></div>
   </div>
 </template>
