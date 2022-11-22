@@ -12,12 +12,16 @@ export default {
     Notenplatzhalter,
     InfoIcon,
   },
+  created() {
+    this.windowWidth = window.innerWidth;
+  },
   data() {
     return {
       jahresnote: 0,
       schriftlich: 0,
       gesamtnote: 0,
       info: "",
+      windowWidth: 0,
     };
   },
   mixins: [globalFunctions],
@@ -50,7 +54,8 @@ export default {
 
 <template>
   <div class="row">
-    <div class="fach">Mathematik</div>
+    <div class="fach" v-if="windowWidth > 450">Mathematik</div>
+    <div class="fach" v-else>Mathe</div>
     <div class="notenfelderRow">
       <Notenfeld id="M1" nextId="M2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
       <Notenfeld id="M2" nextId="E1" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
@@ -72,19 +77,6 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
+@media (min-width: 450px) {
 }
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.fach h1,
-.fach h3 {
-  text-align: center;
-}
-
 </style>

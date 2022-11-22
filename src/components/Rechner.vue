@@ -39,7 +39,7 @@ export default {
       nut: 0,
       informatik: 0,
       gesamtnote: 0,
-      info: "",
+      info: "...",
     };
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
   <FachInformatik @getFachNote="handleGetGesamtNote"></FachInformatik>
   <div class="trenner"></div>
   <div>
-    <div style="text-align: center; font-size: 1.2em">{{ info }}</div>
+    <div style="text-align: center;">{{ info }}</div>
     <div style="text-align: center"><ButtonInfo></ButtonInfo></div>
   </div>
 </template>

@@ -53,7 +53,7 @@ export default {
 
 <template>
   <div class="row">
-    <div class="">Deutsch</div>
+    <div class="fach">Deutsch</div>
     <div class="notenfelderRow">
       <Notenfeld id="D1" nextId="D2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
       <Notenfeld id="D2" nextId="D3" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
@@ -89,5 +89,4 @@ h3 {
 .fach h3 {
   text-align: center;
 }
-
 </style>

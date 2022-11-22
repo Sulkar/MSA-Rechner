@@ -23,7 +23,9 @@ export default {
 <style scoped>
 span {
   transform: rotate(-45deg);
-  margin-left: -15px;
+  margin-left: -20px;
+  height: 20px;
+  font-size: medium;
 }
 .rowNotenHeader {
   margin-top: 15px;

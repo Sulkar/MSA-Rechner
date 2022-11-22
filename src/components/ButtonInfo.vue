@@ -26,17 +26,20 @@ export default {
 </script>
 
 <template>
-  <span @click="openModal()"> Infos <IconInfo style="margin-left: 5px"></IconInfo> </span>
+  <span id="btnInfo" @click="openModal()"> Infos <IconInfo style="margin-left: 5px"></IconInfo> </span>
 
   <Teleport to="body">
     <InfoModal :show="showModal" @close="showModal = false">
       <template #header>
-        <h3>Infos MSA-Rechner</h3>
+        <h3>Info MSA-Rechner</h3>
       </template>
       <template #body>
+        <p>Mit Hilfe des MSA-Rechners kannst du prüfen, ob du den Mittleren Schulabschluss bestanden hast.</p>
+        <br />
         <ul style="padding-left: 15px">
           <li><IconMuendlich></IconMuendlich> mündliche Prüfung möglich.</li>
-          <li>Informationn zur Berechnung: <a target="_blank" href="https://www.gesetze-bayern.de/Content/Document/BayMSO-23">MSO $23</a>.</li>
+          <li><span style="font-weight: bold">T/WiK/ES</span> = Technik/Wirtschaft und Kommunikation/Ernährung und Soziales</li>
+          <li>Weitere Informationn auf: <a target="_blank" href="https://www.unsere-schule.org">unsere-schule.org</a>.</li>
         </ul>
       </template>
       <template #footer> </template>
@@ -45,7 +48,7 @@ export default {
 </template>
 
 <style scoped>
-span {
+#btnInfo {
   cursor: pointer;
   display: flex;
   flex-direction: row;

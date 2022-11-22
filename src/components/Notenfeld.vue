@@ -6,9 +6,15 @@ export default {
   mixins: [globalFunctions],
   methods: {
     updateNote(event) {
-      const currentValue = event.target.value;
-      this.$emit("getNote", this.typ, currentValue);
-      this.focusNextNotenfeld();
+      if (isNaN(event.target.value)) {
+        event.target.value = "";
+      } else if (event.target.value.length > 1) {
+        event.target.value = event.target.value[0];
+      } else {
+        const currentValue = event.target.value;
+        this.$emit("getNote", this.typ, currentValue);
+        this.focusNextNotenfeld();
+      }
     },
     focusNextNotenfeld() {
       if (this.nextId != null && this.nextId != "") {
@@ -34,26 +40,11 @@ export default {
 <style scoped>
 input {
   width: 30px;
-  height: 24px;
   text-align: center;
+  font-size: large;
 }
 div {
   display: flex;
   margin-left: 20px;
 }
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.fach h1,
-.fach h3 {
-  text-align: center;
-}
-
 </style>

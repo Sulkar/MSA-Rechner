@@ -7,7 +7,6 @@ import Rechner from "./components/Rechner.vue";
 
   <main>
     <div id="wrapper">
-      
       <Rechner></Rechner>
     </div>
   </main>
@@ -27,14 +26,11 @@ header {
   #wrapper {
     border-radius: 25px;
     border: 10px solid #008036;
-    padding: 10px 20px 10px;
+    padding: 10px 10px 10px;
   }
   header {
     display: flex;
     place-items: center;
-  }
-
-  .logo {
   }
 
   header .wrapper {

@@ -46,9 +46,9 @@ export default {
 <template>
   <div class="row">
     <div class="projektColumn">
-      <div class="fach">WiB</div>
+      <div class="fach" style="margin-top:-35px;">WiB</div>
       <div class="divider"></div>
-      <div class="fach">Technik</div>
+      <div class="fach" style="margin-top:40px;">T/WiK/ES</div>
     </div>
     <div class="notenfelderRow">
       <div class="projektColumn">
@@ -58,7 +58,7 @@ export default {
       </div>
 
       <div class="projektColumn" style="width: 65px; margin-right: -15px">
-        <span style="position: absolute; margin-left: 20px">Projekt</span>
+        <span style="position: absolute; margin-left: 10px">Projekt</span>
       </div>
 
       <div class="projektColumn">
@@ -108,5 +108,4 @@ h3 {
 .fach h3 {
   text-align: center;
 }
-
 </style>

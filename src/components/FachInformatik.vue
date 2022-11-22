@@ -16,7 +16,11 @@ export default {
       jahresnote: 0,
       gesamtnote: 0,
       info: "",
+      windowWidth: 0,
     };
+  },
+  created(){
+    this.windowWidth = window.innerWidth;
   },
   watch: {
     gesamtnote(newValue, oldValue) {
@@ -43,7 +47,8 @@ export default {
 
 <template>
   <div class="row">
-    <div class="fach">Informatik</div>
+    <div class="fach" v-if="windowWidth > 450">Informatik</div>
+    <div class="fach" v-else>Info</div>
     <div class="notenfelderRow">
       <Notenfeld id="I1" nextId="D1" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
       <Notenplatzhalter width="100px;"></Notenplatzhalter>
@@ -65,19 +70,7 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
-}
 
-h3 {
-  font-size: 1.2rem;
-}
 
-.fach h1,
-.fach h3 {
-  text-align: center;
-}
 
 </style>

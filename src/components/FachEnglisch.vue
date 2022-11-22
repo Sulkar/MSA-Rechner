@@ -51,7 +51,7 @@ export default {
 
 <template>
   <div class="row">
-    <div class="">Englisch</div>
+    <div class="fach">Englisch</div>
     <div class="notenfelderRow">
       <Notenfeld id="E1" nextId="E2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
       <Notenfeld id="E2" nextId="E3" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
@@ -73,19 +73,6 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
-}
 
-h3 {
-  font-size: 1.2rem;
-}
-
-.fach h1,
-.fach h3 {
-  text-align: center;
-}
 
 </style>
