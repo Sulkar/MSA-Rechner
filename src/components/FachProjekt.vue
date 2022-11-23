@@ -5,6 +5,7 @@ import Notenplatzhalter from "./Notenplatzhalter.vue";
 import Gesamtnote from "./Gesamtnote.vue";
 import InfoIcon from "./SymbolMuendlich.vue";
 import NotenfeldProjekt from "./NotenfeldProjekt.vue";
+import NotenfeldWiBBoZ from "./NotenfeldWiBBoZ.vue";
 
 export default {
   components: {
@@ -13,33 +14,59 @@ export default {
     Notenplatzhalter,
     InfoIcon,
     NotenfeldProjekt,
+    NotenfeldWiBBoZ,
   },
   data() {
     return {
-      jahresnoteWiB: 0,
-      jahresnoteBoz: 0,
+      wib: 0,
+      boz: 0,
       projektnote: 0,
       gesamtnote: 0,
       info: "",
     };
   },
   watch: {
-    gesamtnote(newValue, oldValue) {
-      this.$emit("getFachNote", "projekt", newValue);
+    wib(newValue) {
+      this.$emit("getFachNote", "wib", newValue);
     },
-    projektnote(newValue, oldValue) {
-      this.$emit("getProjektNote", newValue);
+    boz(newValue) {
+      this.$emit("getFachNote", "boz", newValue);
+    },
+    projektnote(newValue) {
+      this.$emit("getFachNote", "projektnote", newValue);
+    },
+    gesamtnote(newValue) {
+      this.$emit("getFachNote", "gesamtnote", newValue);
     },
   },
   methods: {
+    sindNotenVollstaendig() {
+      let fachArray = ["wib", "boz", "projektnote"];
+      let notenCounter = 0;
+      fachArray.forEach((fach) => {
+        let tempNote = this[fach];
+        if (tempNote != 0 && !isNaN(tempNote)) {
+          notenCounter++;
+        }
+      });
+      if (notenCounter == fachArray.length) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     handleGetNote(typ, note) {
       this[typ] = parseInt(note);
-      this.calculateGesamtnote();
+      if (this.sindNotenVollstaendig()) {
+        this.calculateGesamtnote();
+      }else{
+        this.gesamtnote = 0;
+      }
     },
     calculateGesamtnote() {
-      this.gesamtnote = Math.round((this.jahresnoteWiB + this.jahresnoteBoz + this.projektnote * 2) / 4);
+      this.gesamtnote = Math.round((this.wib + this.boz + this.projektnote * 2) / 4);
       //Mündliche Prüfung? Wenn Jahresnote 5 oder 6 ist
-      if (this.jahresnoteWiB >= 5 || this.jahresnoteBoz >= 5) {
+      if (this.wib >= 5 || this.boz >= 5) {
         this.info = "*";
       } else {
         this.info = "";
@@ -58,9 +85,9 @@ export default {
     </div>
     <div class="notenfelderRow">
       <div class="projektColumn">
-        <Notenfeld id="P1" nextId="P2" typ="jahresnoteWiB" @getNote="handleGetNote"></Notenfeld>
+        <NotenfeldWiBBoZ id="P1" nextId="P2" typ="wib" @getNote="handleGetNote"></NotenfeldWiBBoZ>
         <div class="divider"></div>
-        <Notenfeld id="P2" nextId="P3" typ="jahresnoteBoz" @getNote="handleGetNote"></Notenfeld>
+        <NotenfeldWiBBoZ id="P2" nextId="P3" typ="boz" @getNote="handleGetNote"></NotenfeldWiBBoZ>
       </div>
 
       <div class="projektColumn" style="width: 65px; margin-right: -15px">
@@ -71,7 +98,7 @@ export default {
         <NotenfeldProjekt id="P3" nextId="R1" typ="projektnote" @getNote="handleGetNote"></NotenfeldProjekt>
       </div>
       <div class="projektColumn">
-        <Gesamtnote id="P4" :note="gesamtnote"></Gesamtnote>
+        <Gesamtnote :disableColor="true" id="P4" :note="gesamtnote"></Gesamtnote>
       </div>
       <div class="projektColumn">
         <InfoIcon :icon="info"></InfoIcon>

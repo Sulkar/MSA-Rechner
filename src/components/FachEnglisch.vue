@@ -28,9 +28,28 @@ export default {
     },
   },
   methods: {
+    sindNotenVollstaendig() {
+      let fachArray = ["jahresnote", "schriftlich", "muendlich"];
+      let notenCounter = 0;
+      fachArray.forEach((fach) => {
+        let tempNote = this[fach];
+        if (tempNote != 0 && !isNaN(tempNote)) {
+          notenCounter++;
+        }
+      });
+      if (notenCounter == fachArray.length) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     handleGetNote(typ, note) {
       this[typ] = parseInt(note);
-      this.calculateGesamtnote();
+      if (this.sindNotenVollstaendig()) {
+        this.calculateGesamtnote();
+      }else{
+        this.gesamtnote = 0;
+      }
     },
     calculateGesamtnote() {
       let pruefungsnote = Math.round((this.schriftlich * 2 + this.muendlich) / 3);

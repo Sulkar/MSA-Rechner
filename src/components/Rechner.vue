@@ -34,39 +34,58 @@ export default {
       mathematik: 0,
       englisch: 0,
       projekt: 0,
-      projektNote: 0,
+      projektnote: 0,
+      wib: 0,
+      boz: 0,
       religion: 0,
       gpg: 0,
       nut: 0,
       informatik: 0,
       gesamtnote: 0,
-      info: "...",
+      info: "Unvollständige Noten ...",
+      fachArray: ["deutsch", "mathematik", "englisch", "wib", "boz", "religion", "gpg", "nut", "informatik"],
     };
   },
   methods: {
-    handleGetGesamtNote(fach, note) {
+    sindNotenVollstaendig() {
+      let tempFachArray = this.fachArray;
+      tempFachArray.push("projektnote");
+      let notenCounter = 0;
+      tempFachArray.forEach((fach) => {
+        let tempNote = this[fach];
+        if (tempNote != 0 && !isNaN(tempNote)) {
+          notenCounter++;
+        }
+      });
+      if (notenCounter == tempFachArray.length) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    handleGetNote(fach, note) {
       this[fach] = parseInt(note);
       this.checkFachnoten();
     },
-    handleGetProjektNote(note) {
-      this.projektNote = parseInt(note);
-      this.checkFachnoten();
-    },
     checkFachnoten() {
-      let fachArray = ["deutsch", "mathematik", "englisch", "projekt", "religion", "gpg", "nut", "informatik"];
+      let tempFachArray = this.fachArray;
       let count5 = 0;
       let count6 = 0;
-      fachArray.forEach((fach) => {
+      tempFachArray.forEach((fach) => {
         if (this[fach] == 5) {
           count5++;
         } else if (this[fach] == 6) {
           count6++;
         }
       });
-      if (count5 > 1 || count6 > 0 || this.projektNote == 6) {
-        this.info = "Du hast den MSA nicht bestanden 😭";
+      if (this.sindNotenVollstaendig()) {
+        if (count5 > 1 || count6 > 0 || this.projektnote == 6) {
+          this.info = "Du hast den MSA nicht bestanden 😭";
+        } else {
+          this.info = "Du hast den MSA bestanden 😁";
+        }
       } else {
-        this.info = "Du hast den MSA bestanden 😁";
+        this.info = "Unvollständige Noten ...";
       }
     },
   },
@@ -75,14 +94,14 @@ export default {
 
 <template>
   <Notenheader></Notenheader>
-  <FachDeutsch @getFachNote="handleGetGesamtNote"></FachDeutsch>
-  <FachMathematik @getFachNote="handleGetGesamtNote"></FachMathematik>
-  <FachEnglisch @getFachNote="handleGetGesamtNote"></FachEnglisch>
-  <FachProjekt @getFachNote="handleGetGesamtNote" @getProjektNote="handleGetProjektNote"></FachProjekt>
-  <FachReligion @getFachNote="handleGetGesamtNote"></FachReligion>
-  <FachGPG @getFachNote="handleGetGesamtNote"></FachGPG>
-  <FachNuT @getFachNote="handleGetGesamtNote"></FachNuT>
-  <FachInformatik @getFachNote="handleGetGesamtNote"></FachInformatik>
+  <FachDeutsch @getFachNote="handleGetNote"></FachDeutsch>
+  <FachMathematik @getFachNote="handleGetNote"></FachMathematik>
+  <FachEnglisch @getFachNote="handleGetNote"></FachEnglisch>
+  <FachProjekt @getFachNote="handleGetNote"></FachProjekt>
+  <FachReligion @getFachNote="handleGetNote"></FachReligion>
+  <FachGPG @getFachNote="handleGetNote"></FachGPG>
+  <FachNuT @getFachNote="handleGetNote"></FachNuT>
+  <FachInformatik @getFachNote="handleGetNote"></FachInformatik>
   <div class="trenner"></div>
   <div>
     <div style="text-align: center">{{ info }}</div>
@@ -94,5 +113,6 @@ export default {
 .trenner {
   margin: 10px 0 10px 0;
   border: 2px solid #008036;
+  background-color: #008036;
 }
 </style>

@@ -2,20 +2,24 @@
 export default {
   props: {
     note: Number,
+    disableColor: Boolean,
   },
   methods: {
     setNote() {
-      if (this.note == 0) {
+      if (this.note == 0 || isNaN(this.note)) {
         return "";
       } else {
         return this.note;
       }
     },
     getBackgroundColor() {
-      if (this.note < 5) {
-        return "good";
-      } else {
+      if (this.note == 0 || isNaN(this.note) || this.disableColor) {
+        return "neutral";
+      }
+      if (this.note >= 5) {
         return "bad";
+      } else {
+        return "good";
       }
     },
   },
@@ -38,6 +42,10 @@ input {
   border-left-style: hidden;
   border-bottom-style: groove;
   outline: none;
+}
+.neutral {
+  background-color: white;
+  color: black;
 }
 .good {
   background-color: lightgreen;

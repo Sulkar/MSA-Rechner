@@ -31,15 +31,15 @@ export default {
   <Teleport to="body">
     <InfoModal :show="showModal" @close="showModal = false">
       <template #header>
-        <h3>Info MSA-Rechner</h3>
+        <h3 style="font-weight: bolder;">Info MSA-Rechner</h3>
       </template>
       <template #body>
         <p>Mit Hilfe des MSA-Rechners kannst du prüfen, ob du den Mittleren Schulabschluss bestanden hast.</p>
         <br />
         <ul style="padding-left: 15px">
-          <li><IconMuendlich></IconMuendlich> mündliche Prüfung möglich.</li>
+          <li><IconMuendlich></IconMuendlich> = mündliche Prüfung möglich.</li>
           <li><span style="font-weight: bold">T/WiK/ES</span> = Technik/Wirtschaft und Kommunikation/Ernährung und Soziales</li>
-          <li>Weitere Informationn auf: <a target="_blank" href="https://www.unsere-schule.org">unsere-schule.org</a>.</li>
+          <li>Weitere Informationn zur Logik und Berechnung findest du auf: <a target="_blank" href="https://www.unsere-schule.org">unsere-schule.org</a>.</li>
         </ul>
       </template>
       <template #footer> </template>
