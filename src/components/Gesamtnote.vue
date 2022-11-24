@@ -48,7 +48,7 @@ input {
   color: black;
 }
 .good {
-  background-color: lightgreen;
+  background-color: #80D59A;
 }
 .bad {
   background-color: lightcoral;

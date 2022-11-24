@@ -19,10 +19,13 @@ export default {
       }
     },
     getBackgroundColor() {
+      if (this.tempNote == 0 || isNaN(this.tempNote)) {
+        return "neutral";
+      }
       if (this.tempNote == 6) {
         return "bad";
       } else {
-        return "";
+        return "good";
       }
     },
   },
@@ -36,9 +39,15 @@ export default {
 </template>
 
 <style scoped>
+.good {
+  color:white;
+  background-color: #80D59A;
+  
+}
 .bad {
+  color:white;
   background-color: lightcoral;
-  color: white;
+  
 }
 input {
   width: 30px;
@@ -47,6 +56,6 @@ input {
 }
 div {
   display: flex;
-  margin-left: 20px;
+  
 }
 </style>

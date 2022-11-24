@@ -81,10 +81,22 @@ export default {
         if (count5 > 1 || count6 > 0 || this.projektNote == 6) {
           this.info = "Du hast den MSA nicht bestanden 😭*";
         } else {
-          this.info = "Du hast den MSA bestanden 😁";
+          if (this.checkFosMoeglich()) {
+            this.info = "Du hast den MSA bestanden 😁 -> 🎓";
+          } else {
+            this.info = "Du hast den MSA bestanden 😁";
+          }
         }
       } else {
         this.info = "Unvollständige Noten ...";
+      }
+    },
+    checkFosMoeglich() {
+      let fosDurchschnitt = Math.round(((this.mathematikGesamtnote + this.englischGesamtnote + this.deutschGesamtnote) / 3) * 100) / 100;
+      if (fosDurchschnitt <= 3.5) {
+        return true;
+      } else {
+        return false;
       }
     },
   },

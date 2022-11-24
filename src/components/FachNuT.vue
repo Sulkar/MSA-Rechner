@@ -2,14 +2,16 @@
 import Notenfeld from "./Notenfeld.vue";
 import Notenplatzhalter from "./Notenplatzhalter.vue";
 import Gesamtnote from "./Gesamtnote.vue";
-import InfoIcon from "./SymbolMuendlich.vue";
+import SymbolMuendlich from "./SymbolMuendlich.vue";
+import NotenfeldWiBBoZ from "./NotenfeldWiBBoZ.vue";
 
 export default {
   components: {
     Notenfeld,
     Gesamtnote,
     Notenplatzhalter,
-    InfoIcon,
+    NotenfeldWiBBoZ,
+    SymbolMuendlich
   },
   data() {
     return {
@@ -45,12 +47,9 @@ export default {
   <div class="row">
     <div class="fach">NuT</div>
     <div class="notenfelderRow">
-      <Notenfeld id="N1" nextId="I1" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
-      <Notenplatzhalter width="100px;"></Notenplatzhalter>
-
-      <Gesamtnote id="N2" :note="gesamtnote"></Gesamtnote>
-      <InfoIcon :icon="info"></InfoIcon>
-      <Notenplatzhalter width="15px;"></Notenplatzhalter>
+      <NotenfeldWiBBoZ id="N1" nextId="I1" typ="jahresnote" @getNote="handleGetNote"></NotenfeldWiBBoZ>     
+      <SymbolMuendlich :icon="info"></SymbolMuendlich>
+      <Notenplatzhalter width="165px;"></Notenplatzhalter>
     </div>
   </div>
 </template>

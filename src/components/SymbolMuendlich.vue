@@ -22,6 +22,7 @@ export default {
 div {
   margin-left: 5px;
   width: 30px;
+  height: 27px;
   text-align: center;
 }
 </style>

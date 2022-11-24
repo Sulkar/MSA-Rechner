@@ -19,10 +19,13 @@ export default {
       }
     },
     getBackgroundColor() {
+      if (this.tempNote == 0 || isNaN(this.tempNote)) {
+        return "neutral";
+      }
       if (this.tempNote >= 5) {
         return "bad";
       } else {
-        return "";
+        return "good";
       }
     },
   },
@@ -36,14 +39,32 @@ export default {
 </template>
 
 <style scoped>
+.neutral {
+
+}
+.good {
+  color:white;
+  background-color: #80D59A;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  outline: none;
+}
 .bad {
+  color:white;
   background-color: lightcoral;
-  color: white;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  outline: none;
 }
 input {
   width: 30px;
+  height: 27px;
   text-align: center;
-  font-size: large;
+  font-size: large; 
 }
 div {
   display: flex;

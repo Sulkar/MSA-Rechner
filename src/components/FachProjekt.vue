@@ -22,7 +22,8 @@ export default {
       bozNote: 0,
       projektNote: 0,
       gesamtnote: 0,
-      info: "",
+      infoWib: "",
+      infoBoZ: "",
     };
   },
   watch: {
@@ -57,19 +58,28 @@ export default {
     },
     handleGetNote(typ, note) {
       this[typ] = parseInt(note);
+      this.updateInfoFaecher();
       if (this.sindNotenVollstaendig()) {
         this.calculateGesamtnote();
-      }else{
+      } else {
         this.gesamtnote = 0;
       }
     },
     calculateGesamtnote() {
       this.gesamtnote = Math.round((this.wibNote + this.bozNote + this.projektNote * 2) / 4);
+    },
+    updateInfoFaecher() {
       //Mündliche Prüfung? Wenn Jahresnote 5 oder 6 ist
-      if (this.wibNote >= 5 || this.bozNote >= 5) {
-        this.info = "*";
+      if (this.wibNote >= 5) {
+        this.infoWib = "*";
       } else {
-        this.info = "";
+        this.infoWib = "";
+      }
+
+      if (this.bozNote >= 5) {
+        this.infoBoZ = "*";
+      } else {
+        this.infoBoZ = "";
       }
     },
   },
@@ -90,21 +100,26 @@ export default {
         <NotenfeldWiBBoZ id="P2" nextId="R1" typ="bozNote" @getNote="handleGetNote"></NotenfeldWiBBoZ>
       </div>
 
-      <div class="projektColumn" style="width: 65px; margin-right: -15px">
-        <span style="position: absolute; margin-left: 10px">Projekt</span>
+      <div class="projektColumn">
+        <InfoIcon :icon="infoWib"></InfoIcon>
+        <div class="divider"></div>
+        <InfoIcon :icon="infoBoZ"></InfoIcon>
       </div>
 
-      <div class="projektColumn">
+      <Notenplatzhalter width="5px;"></Notenplatzhalter>
+
+      <div class="projektColumn" style="width: 60px; align-items: center;">
+        <span style="text-align: center">Projekt</span>
+        
         <NotenfeldProjekt id="P3" nextId="D1" typ="projektNote" @getNote="handleGetNote"></NotenfeldProjekt>
       </div>
+
+      <div class="projektColumn"></div>
       <div class="projektColumn">
         <Gesamtnote :disableColor="true" id="P4" :note="gesamtnote"></Gesamtnote>
       </div>
-      <div class="projektColumn">
-        <InfoIcon :icon="info"></InfoIcon>
-      </div>
 
-      <Notenplatzhalter width="15px;"></Notenplatzhalter>
+      <Notenplatzhalter width="50px;"></Notenplatzhalter>
     </div>
   </div>
 </template>
