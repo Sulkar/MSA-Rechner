@@ -20,7 +20,7 @@ export default {
   },
   watch: {
     gesamtnote(newValue, oldValue) {
-      this.$emit("getFachNote", "nut", newValue);
+      this.$emit("getFachNote", "nutNote", newValue);
     },
   },
   methods: {

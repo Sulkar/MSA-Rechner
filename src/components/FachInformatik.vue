@@ -24,7 +24,7 @@ export default {
   },
   watch: {
     gesamtnote(newValue, oldValue) {
-      this.$emit("getFachNote", "informatik", newValue);
+      this.$emit("getFachNote", "informatikNote", newValue);
     },
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
     <div class="fach" v-if="windowWidth > 450">Informatik</div>
     <div class="fach" v-else>Info</div>
     <div class="notenfelderRow">
-      <Notenfeld id="I1" nextId="D1" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="I1" nextId="D2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
       <Notenplatzhalter width="100px;"></Notenplatzhalter>
 
       <Gesamtnote id="I2" :note="gesamtnote"></Gesamtnote>

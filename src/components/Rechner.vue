@@ -30,26 +30,25 @@ export default {
   },
   data() {
     return {
-      deutsch: 0,
-      mathematik: 0,
-      englisch: 0,
-      projekt: 0,
-      projektnote: 0,
-      wib: 0,
-      boz: 0,
-      religion: 0,
-      gpg: 0,
-      nut: 0,
-      informatik: 0,
-      gesamtnote: 0,
+      deutschGesamtnote: 0,
+      mathematikGesamtnote: 0,
+      englischGesamtnote: 0,
+      projektGesamtnote: 0,
+      projektNote: 0,
+      wibNote: 0,
+      bozNote: 0,
+      religionNote: 0,
+      gpgNote: 0,
+      nutNote: 0,
+      informatikNote: 0,
       info: "Unvollständige Noten ...",
-      fachArray: ["deutsch", "mathematik", "englisch", "wib", "boz", "religion", "gpg", "nut", "informatik"],
+      fachArray: ["deutschGesamtnote", "mathematikGesamtnote", "englischGesamtnote", "wibNote", "bozNote", "religionNote", "gpgNote", "nutNote", "informatikNote"],
     };
   },
   methods: {
     sindNotenVollstaendig() {
-      let tempFachArray = this.fachArray;
-      tempFachArray.push("projektnote");
+      let tempFachArray = Array.from(this.fachArray);
+      tempFachArray.push("projektNote");
       let notenCounter = 0;
       tempFachArray.forEach((fach) => {
         let tempNote = this[fach];
@@ -68,7 +67,7 @@ export default {
       this.checkFachnoten();
     },
     checkFachnoten() {
-      let tempFachArray = this.fachArray;
+      let tempFachArray = Array.from(this.fachArray);
       let count5 = 0;
       let count6 = 0;
       tempFachArray.forEach((fach) => {
@@ -79,8 +78,8 @@ export default {
         }
       });
       if (this.sindNotenVollstaendig()) {
-        if (count5 > 1 || count6 > 0 || this.projektnote == 6) {
-          this.info = "Du hast den MSA nicht bestanden 😭";
+        if (count5 > 1 || count6 > 0 || this.projektNote == 6) {
+          this.info = "Du hast den MSA nicht bestanden 😭*";
         } else {
           this.info = "Du hast den MSA bestanden 😁";
         }

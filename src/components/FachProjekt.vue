@@ -18,30 +18,30 @@ export default {
   },
   data() {
     return {
-      wib: 0,
-      boz: 0,
-      projektnote: 0,
+      wibNote: 0,
+      bozNote: 0,
+      projektNote: 0,
       gesamtnote: 0,
       info: "",
     };
   },
   watch: {
-    wib(newValue) {
-      this.$emit("getFachNote", "wib", newValue);
+    wibNote(newValue) {
+      this.$emit("getFachNote", "wibNote", newValue);
     },
-    boz(newValue) {
-      this.$emit("getFachNote", "boz", newValue);
+    bozNote(newValue) {
+      this.$emit("getFachNote", "bozNote", newValue);
     },
-    projektnote(newValue) {
-      this.$emit("getFachNote", "projektnote", newValue);
+    projektNote(newValue) {
+      this.$emit("getFachNote", "projektNote", newValue);
     },
     gesamtnote(newValue) {
-      this.$emit("getFachNote", "gesamtnote", newValue);
+      this.$emit("getFachNote", "projektGesamtnote", newValue);
     },
   },
   methods: {
     sindNotenVollstaendig() {
-      let fachArray = ["wib", "boz", "projektnote"];
+      let fachArray = ["wibNote", "bozNote", "projektNote"];
       let notenCounter = 0;
       fachArray.forEach((fach) => {
         let tempNote = this[fach];
@@ -64,9 +64,9 @@ export default {
       }
     },
     calculateGesamtnote() {
-      this.gesamtnote = Math.round((this.wib + this.boz + this.projektnote * 2) / 4);
+      this.gesamtnote = Math.round((this.wibNote + this.bozNote + this.projektNote * 2) / 4);
       //Mündliche Prüfung? Wenn Jahresnote 5 oder 6 ist
-      if (this.wib >= 5 || this.boz >= 5) {
+      if (this.wibNote >= 5 || this.bozNote >= 5) {
         this.info = "*";
       } else {
         this.info = "";
@@ -85,9 +85,9 @@ export default {
     </div>
     <div class="notenfelderRow">
       <div class="projektColumn">
-        <NotenfeldWiBBoZ id="P1" nextId="P2" typ="wib" @getNote="handleGetNote"></NotenfeldWiBBoZ>
+        <NotenfeldWiBBoZ id="P1" nextId="P2" typ="wibNote" @getNote="handleGetNote"></NotenfeldWiBBoZ>
         <div class="divider"></div>
-        <NotenfeldWiBBoZ id="P2" nextId="P3" typ="boz" @getNote="handleGetNote"></NotenfeldWiBBoZ>
+        <NotenfeldWiBBoZ id="P2" nextId="R1" typ="bozNote" @getNote="handleGetNote"></NotenfeldWiBBoZ>
       </div>
 
       <div class="projektColumn" style="width: 65px; margin-right: -15px">
@@ -95,7 +95,7 @@ export default {
       </div>
 
       <div class="projektColumn">
-        <NotenfeldProjekt id="P3" nextId="R1" typ="projektnote" @getNote="handleGetNote"></NotenfeldProjekt>
+        <NotenfeldProjekt id="P3" nextId="D1" typ="projektNote" @getNote="handleGetNote"></NotenfeldProjekt>
       </div>
       <div class="projektColumn">
         <Gesamtnote :disableColor="true" id="P4" :note="gesamtnote"></Gesamtnote>

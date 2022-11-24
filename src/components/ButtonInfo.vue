@@ -39,10 +39,17 @@ export default {
         <ul style="padding-left: 15px">
           <li><IconMuendlich></IconMuendlich> = mündliche Prüfung möglich.</li>
           <li><span style="font-weight: bold">T/WiK/ES</span> = Technik/Wirtschaft und Kommunikation/Ernährung und Soziales</li>
-          <li>Weitere Informationn zur Logik und Berechnung findest du auf: <a target="_blank" href="https://www.unsere-schule.org">unsere-schule.org</a>.</li>
+          <li>Im MSA-Rechner überwiegt immer die Prüfungsnote.</li>
+          <li>😭* = nicht bestanden, doch es kann womöglich ein Notenausgleich gewährt werden.</li>
+          <li>Weitere Informationen zur Logik und Berechnung findest du auf: <a target="_blank" href="https://unsere-schule.org/allgemeines/tools/msa-rechner/">unsere-schule.org</a>.</li>
         </ul>
       </template>
-      <template #footer> </template>
+      <template #footer> 
+        <div style="text-align: center;">
+          <span>with ❤️ by Richard Scheglmann</span>
+        </div>
+        
+      </template>
     </InfoModal>
   </Teleport>
 </template>

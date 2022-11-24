@@ -22,7 +22,7 @@ export default {
 
           <div class="modal-footer">
             <slot name="footer"> </slot>
-            <button class="modal-default-button" @click="$emit('close')">OK</button>
+            <!--<button class="modal-default-button" @click="$emit('close')">OK</button>-->
           </div>
         </div>
       </div>

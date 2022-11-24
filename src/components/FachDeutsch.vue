@@ -25,7 +25,7 @@ export default {
   mixins: [globalFunctions],
   watch: {
     gesamtnote(newValue, oldValue) {
-      this.$emit("getFachNote", "deutsch", newValue);
+      this.$emit("getFachNote", "deutschGesamtnote", newValue);
     },
   },
   methods: {
@@ -74,9 +74,9 @@ export default {
   <div class="row">
     <div class="fach">Deutsch</div>
     <div class="notenfelderRow">
-      <Notenfeld id="D1" nextId="D2" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
-      <Notenfeld id="D2" nextId="D3" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
-      <Notenfeld id="D3" nextId="M1" typ="muendlich" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="D1" nextId="M1" typ="jahresnote" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="D2" nextId="M2" typ="schriftlich" @getNote="handleGetNote"></Notenfeld>
+      <Notenfeld id="D3" nextId="E3" typ="muendlich" @getNote="handleGetNote"></Notenfeld>
       <Gesamtnote id="D4" :note="gesamtnote"></Gesamtnote>
       <SymbolMuendlich :icon="info"></SymbolMuendlich>
       <Notenplatzhalter width="15px;"></Notenplatzhalter>
