@@ -1,5 +1,11 @@
-<script setup>
+<script>
 import Rechner from "./components/Rechner.vue";
+
+export default {
+  components: {
+    Rechner,
+  },
+};
 </script>
 
 <template>

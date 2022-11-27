@@ -34,7 +34,7 @@ export default {
         <h3 style="font-weight: bolder;">Info MSA-Rechner</h3>
       </template>
       <template #body>
-        <p>Mit Hilfe des MSA-Rechners kannst du prüfen, ob du den Mittleren Schulabschluss bestanden hast.</p>
+        <p>Mit Hilfe des MSA-Rechners kannst du prüfen, ob du den mittleren Schulabschluss bestanden hast.</p>
         <br />
         <ul style="padding-left: 15px">
           <li><IconMuendlich></IconMuendlich> = mündliche Prüfung möglich.</li>          
